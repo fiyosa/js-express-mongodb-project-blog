@@ -150,7 +150,7 @@ exports.delete = (req, res, next) => {
 
     User.find({id})
       .then(result => {
-        if(!result) {
+        if(result) {
           errorResult(404, 'Account not found');
         }
         return User.deleteOne({id})
