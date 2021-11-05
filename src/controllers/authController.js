@@ -148,7 +148,13 @@ exports.delete = (req, res, next) => {
 
     const id = req.params.id;
 
-    User.deleteOne({id})
+    User.find({id})
+      .then(result => {
+        if(!result) {
+          errorResult(404, 'Account not found');
+        }
+        return User.deleteOne({id})
+      })
       .then(result => {
         Blog.deleteMany({category_id: id})
           .then(result => {
