@@ -72,7 +72,7 @@ exports.validate = (req, res, next) => {
 
     User.find({email, password})
       .then(result => {
-        if(result){
+        if(result.length){
           res.status(200).json({
             message: 'Validate success !!!',
             user_id: result[0]._id,
@@ -148,12 +148,12 @@ exports.delete = (req, res, next) => {
 
     const id = req.params.id;
 
-    User.find({id})
+    User.find({_id:id})
       .then(result => {
-        if(!result) {
+        if(!result.length) {
           errorResult(404, 'Account not found');
         }
-        return User.deleteOne({id})
+        return User.deleteOne({_id: id})
       })
       .then(result => {
         Blog.deleteMany({category_id: id})

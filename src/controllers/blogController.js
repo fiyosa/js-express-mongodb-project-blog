@@ -280,7 +280,7 @@ exports.delete = (req, res, next) => {
     
     Blog.find({slug})
       .then(result => {
-        if(!result){
+        if(!result.length){
           errorResult(404, "Blog not found");
         }
         if(!result[0].image){
